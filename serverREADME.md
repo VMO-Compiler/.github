@@ -49,7 +49,7 @@ srun my_sbatch.sh
 
 You can check the slurm execution queue with `squeue`.
 ```bash
-squeue -o "%.18i %.9P %.8j %.8u %.2t %.10M %.6D %R %b"
+squeue -o "%.18i %.9P %.8j %.8u %.2t %.10M %.6D %.16R %.16b"
 ```
 The command above is registered as **`sq`**.
 
