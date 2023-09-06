@@ -42,7 +42,7 @@ For example, create an shell script and write,
 ```
 Then,
 ```bash
-srun my_sbatch.sh
+sbatch my_sbatch.sh
 ```
 
 ---
