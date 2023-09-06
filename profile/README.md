@@ -9,19 +9,13 @@ Compiler research group at VMO Lab. ECE. SNU.
 
 # How to use server (Guava)
 ## Allocate and Bind CPU Cores
-**TLDR;** Use `numactl`.  
+**TLDR;** `srun --ntasks=<n> <my_executable>`  
 
-You can specify the cores to run your program.
-For example, if you want to run your executable on the core 0 to 3 (4 cores)
-```bash
-numactl --physcpubind=0,1,2,3 <my_executable>
-```
-or
-```bash
-numactl --physcpubind=0-3 <my_executable>
-```
+You can specify the number of CPU cores, which will run your program.
+Use `--ntasks` option to specify the number of cores.  
 
-Those commands will set your program's core affinitiy.
+You only can use 48 cores at maximum.
+The rest of cores are used for OS and other light tasks.
 
 ## Allocate and Bind GPUs
 **TLDR;** `srun --gres=gpu:<n> <my_executable>`  
@@ -38,6 +32,23 @@ On the other hand, if you use `srun` or `sbatch`, the environment will be change
 ```bash
 srun --gres=gpu:1 nvidia-smi
 ```
+Also, you can submit your job batch to the slurm with `sbatch`.
+For example, create an shell script and write,
+```bash
+#!/bin/bash
+#
+#SBATCH --ntasks=16      # CPU cores
+#SBATCH --mem=2gb        # Memory limit
+#SBATCH --time=00:10:00  # Time limit (hh:mm:ss)
+#SBATCH --gres=gpu:2     # GPUs
+./my_executable
+```
+Then,
+```bash
+srun my_sbatch.sh
+```
+
+---
 
 You can check the slurm execution queue with `squeue`.
 ```bash
